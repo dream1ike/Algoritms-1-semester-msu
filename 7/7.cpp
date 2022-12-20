@@ -74,7 +74,12 @@ int row_with_the_largest_amount(double** arr, int size)
         {
             sum_of_el += arr[i][j];
         }
-        if (row < sum_of_el || i == 0) number_row = i;
+        if (row < sum_of_el || i == 0)
+        {
+            row = sum_of_el;
+            number_row = i+1;
+            sum_of_el = 0;
+        }
     }
     return number_row;
 }
