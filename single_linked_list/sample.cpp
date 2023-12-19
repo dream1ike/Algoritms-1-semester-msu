@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+ 
 typedef struct list{
     int field;
     list* ptr;
@@ -9,39 +10,38 @@ list* init(int a)
 {
     list* lst;
     lst = (list*)malloc(sizeof(list));
-    lst->field = a;
-    lst->ptr = NULL;
+    lst -> field = a;
+    lst ->ptr = NULL;
     return lst;
 }
 list* addelement (list *lst, int number)
 {
-    list *temp, *p;
-    temp = (list*)malloc(sizeof(list));
-    p = lst->ptr;
-    lst->ptr = temp;
-    temp->field = number;
-    temp->ptr = p;
-    return temp;
+    list* temp;
+    list* reallst;
+    reallst = (list*)malloc(sizeof(list));
+    temp = lst ->ptr;
+    reallst -> ptr = temp;
+    lst -> ptr = reallst -> ptr;
+    reallst ->field = number;
+    return reallst;
+
 }
 list* deleteelem(list *lst, list* root)
 {
-    list* temp;
-    temp = root;
-    while (temp->ptr != lst)
-    {
-        temp = temp->ptr;
-    }
-    temp->ptr = lst->ptr;
+    list* reallst;
+    reallst = root;
+    while (reallst -> ptr != lst)
+        reallst = reallst -> ptr;
+    reallst -> ptr = lst -> ptr;
     free(lst);
-    return temp;
+    return reallst;
 }
-
 list* deletehead(list* root)
 {
-    list* tmp;
-    tmp = root->ptr;
+    list* reallst;
+    reallst = root -> ptr;
     free(root);
-    return tmp;
+    return reallst;
 }
 
 void listprint(list* lst)
